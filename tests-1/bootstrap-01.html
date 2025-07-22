@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <!-- row 1 -->
+        <div class="row">
+            <div class="col-6"><h1 class="text-center">Kolumna lewa</h1></div>
+            <div class="col-6"><h1 class="text-center">Kolumna prawa</h1></div>
+        </div>
+        
+        <!--row 2 -->
+        <div class="row">
+            <div class="col-4">
+                <button class="btn btn-primary">Kliknij mnie</button>
+            </div>
+            <div class="col-4">
+                <button class="btn btn-success">Zapisz</button>
+            </div>
+            <div class="col-4">
+                <button class="btn btn-warning">Taki sobie przycisk</button>
+            </div>
+        </div>
+
+        <!--row 3-->
+        <div class="row">
+            <div class="col-12">
+                <button class="btn btn-info w-100 btn-lg" onclick="alert('Kliknięto!')">Przycisk</button>
+            </div>
+        </div>
+
+        <!--row 4-->
+        <div class="row mt-4">
+            <div class="col-4">
+                <button class="btn btn-primary w-100" onclick="licznikKlikniecia()">
+                    Licznik (<span id="licznik">0</span>)
+                </button>
+            </div>
+            <div class="col-4">
+                <button class="btn btn-primary w-100" onclick="zmienTlo()">Zmień tło</button>
+            </div>
+            <div class="col-4">
+                <button
+            </div>
+
+
+        </div>
+    </div>
+
+
+    <script>
+        let klikniecia = 0;
+        
+        function licznikKlikniecia() {
+            klikniecia++;
+            document.getElementById('licznik').textContent = klikniecia;
+        }
+
+        function zmienTlo() {
+            const kolory = ['#f8f9fa', '#e3f2fd', '#e8f5e8', '#fff3e0', '#fce4ec', '#f3e5f5'];
+            const losowy = kolory[Math.floor(Math.random() * kolory.length)];
+            document.body.style.backgroundColor = losowy;
+        }
+
+        function ukryjPokaz() {
+            const tekst = document.getElementById('tekst');
+            if (tekst.style.display === 'none') {
+                tekst.style.display = 'block';
+            } else {
+                tekst.style.display = 'none';
+            }
+        }
+        
+        function pokazCzas() {
+            const teraz = new Date();
+            document.getElementById('czas').textContent = 
+                'Aktualny czas: ' + teraz.toLocaleString('pl-PL');
+        }
+    </script>
+</body>
+</html>
