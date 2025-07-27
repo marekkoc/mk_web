@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <!--główny kontener strony-->
+    <div class="container">
+        <div class="col-12">
+            <button class="btn btn-info w-100 btn-lg" onclick="pokazCzas()">
+                Pokaż aktualny czas
+            </button>
+            <p id="czas" class="text-center mt-3"></p>
+        </div>
+        
+    </div>
+
+
+    <script> 
+    function pokazCzas() {
+        const teraz = new Date();
+        document.getElementById('czas').textContent = teraz.toLocaleString();
+    }
+
+    </script>
+</body>
+</html>
