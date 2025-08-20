@@ -15,7 +15,7 @@
   <!-- Bootstrap Container -->
   <div class="container mt-5">
 
-    <!-- Header -->
+<!------- TYTUŁ GŁÓWNY ORAZ TEKST POD TYTUŁEM  --->
     <div class="row">
       <div class="col-12">
         <h1 class="text-center mb-4">Path generator to files!"</h1>
@@ -25,7 +25,10 @@
       </div>
     </div>
 
-    <!-- Test bootstrap - przycisk testowy --->
+
+
+<!----------- PRZYCISK TESTOWY ----------------------->
+
     <div class="row mt-4">
       <div class="col-12 text-center mb-4">
         <button type="button" class="btn btn-primary ">
@@ -35,7 +38,11 @@
       </div>
     </div>
 
-    <!--- Formularz generowania ścieżek - KROK 3A--->
+
+<!--------- PANEL DO WSZYSTKICH NAPISÓW I PRZYCISKÓW ----->
+
+
+<!--- Formularz generowania ścieżek - KROK 3A--->
     <div class="row mt-5">
       <div class="col-12">
 
@@ -73,6 +80,11 @@
         </div>
       </div>
     </div>
+
+
+
+<div>
+</
 
 
 
