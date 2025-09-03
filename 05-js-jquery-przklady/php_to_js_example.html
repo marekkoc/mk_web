@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PHP → JavaScript</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container mt-4">
+        <h1>Przekazywanie danych z PHP do JavaScript</h1>
+
+        <?php
+        // Symulujemy dane użytkownika (normalnie z bazy/sesji)
+        $user_name = "jan_kowalski";
+        $user_email = "jan.kowalski@example.com";
+        $user_role = "admin";
+        $login_time = "2025-01-15 10:30:00";
+        ?>
+
+        <!-- Te linie generuje PHP (jak w twoim przykładzie) -->
+        <?php
+        echo('<script type="text/javascript"> user_name = "'.$user_name.'"; </script>'."\n");
+        echo('<script type="text/javascript"> user_email = "'.$user_email.'"; </script>'."\n");
+        echo('<script type="text/javascript"> user_role = "'.$user_role.'"; </script>'."\n");
+        echo('<script type="text/javascript"> login_time = "'.$login_time.'"; </script>'."\n");
+        ?>
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Dane z PHP</h3>
+                    </div>
+                    <div class="card-body">
+                        <p><strong>Użytkownik:</strong> <?php echo $user_name; ?></p>
+                        <p><strong>Email:</strong> <?php echo $user_email; ?></p>
+                        <p><strong>Rola:</strong> <?php echo $user_role; ?></p>
+                        <p><strong>Login:</strong> <?php echo $login_time; ?></p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Te same dane w JavaScript</h3>
+                    </div>
+                    <div class="card-body">
+                        <p><strong>Użytkownik:</strong> <span id="js-username"></span></p>
+                        <p><strong>Email:</strong> <span id="js-email"></span></p>
+                        <p><strong>Rola:</strong> <span id="js-role"></span></p>
+                        <p><strong>Login:</strong> <span id="js-login"></span></p>
+                        
+                        <button onclick="showUserData()" class="btn btn-primary">Pokaż dane z JS</button>
+                        <button onclick="greetUser()" class="btn btn-success">Przywitaj się</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mt-4">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Jak to wygląda w kodzie źródłowym</h3>
+                    </div>
+                    <div class="card-body">
+                        <h5>PHP generuje ten HTML/JavaScript:</h5>
+                        <pre class="bg-light p-3"><code>&lt;script type="text/javascript"&gt; user_name = "<?php echo $user_name; ?>"; &lt;/script&gt;
+&lt;script type="text/javascript"&gt; user_email = "<?php echo $user_email; ?>"; &lt;/script&gt;
+&lt;script type="text/javascript"&gt; user_role = "<?php echo $user_role; ?>"; &lt;/script&gt;
+&lt;script type="text/javascript"&gt; login_time = "<?php echo $login_time; ?>"; &lt;/script&gt;</code></pre>
+                        
+                        <h5 class="mt-3">JavaScript widzi te zmienne globalne:</h5>
+                        <pre class="bg-light p-3"><code>console.log(user_name);  // "<?php echo $user_name; ?>"
+console.log(user_email); // "<?php echo $user_email; ?>"
+console.log(user_role);  // "<?php echo $user_role; ?>"
+console.log(login_time); // "<?php echo $login_time; ?>"</code></pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mt-4">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Konsola przeglądarki</h3>
+                    </div>
+                    <div class="card-body">
+                        <p>Naciśnij F12 i otwórz konsolę. Wpisz:</p>
+                        <ul>
+                            <li><code>user_name</code> - zobaczysz "<?php echo $user_name; ?>"</li>
+                            <li><code>user_email</code> - zobaczysz "<?php echo $user_email; ?>"</li>
+                            <li><code>user_role</code> - zobaczysz "<?php echo $user_role; ?>"</li>
+                        </ul>
+                        <button onclick="logToConsole()" class="btn btn-info">Wypisz w konsoli</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function showUserData() {
+            // Używamy zmiennych przekazanych z PHP
+            document.getElementById('js-username').textContent = user_name;
+            document.getElementById('js-email').textContent = user_email;
+            document.getElementById('js-role').textContent = user_role;
+            document.getElementById('js-login').textContent = login_time;
+        }
+
+        function greetUser() {
+            let message = "Witaj " + user_name + "!\n";
+            message += "Twój email to: " + user_email + "\n";
+            message += "Masz rolę: " + user_role;
+            alert(message);
+        }
+
+        function logToConsole() {
+            console.log("=== Dane użytkownika ===");
+            console.log("Nazwa:", user_name);
+            console.log("Email:", user_email);
+            console.log("Rola:", user_role);
+            console.log("Login:", login_time);
+        }
+
+        // Automatycznie pokaż dane przy załadowaniu strony
+        window.onload = function() {
+            showUserData();
+        };
+    </script>
+</body>
+</html>

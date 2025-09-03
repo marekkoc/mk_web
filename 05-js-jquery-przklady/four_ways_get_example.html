@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>4 sposoby wypełnienia GET</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container mt-4">
+        <div class="row">
+            <div class="col-md-10 mx-auto">
+                <h1 class="text-center mb-4">4 sposoby wypełnienia parametru GET</h1>
+                
+                <!-- Sposób 1: Linki -->
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <h3>Sposób 1: Przez linki</h3>
+                    </div>
+                    <div class="card-body">
+                        <p>Kliknij jeden z linków poniżej:</p>
+                        <div class="d-flex gap-2 flex-wrap">
+                            <a href="?kategoria=laptopy" class="btn btn-primary">Laptopy</a>
+                            <a href="?kategoria=telefony" class="btn btn-primary">Telefony</a>
+                            <a href="?kategoria=tablety" class="btn btn-primary">Tablety</a>
+                            <a href="?" class="btn btn-secondary">Reset</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sposób 2: Przyciski w formularzu -->
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <h3>Sposób 2: Przez przyciski</h3>
+                    </div>
+                    <div class="card-body">
+                        <p>Kliknij przycisk aby wysłać formularz:</p>
+                        <div class="d-flex gap-2 flex-wrap">
+                            <form method="GET" class="d-inline">
+                                <button name="kategoria" value="muzyka" class="btn btn-success">Muzyka</button>
+                            </form>
+                            <form method="GET" class="d-inline">
+                                <button name="kategoria" value="filmy" class="btn btn-success">Filmy</button>
+                            </form>
+                            <form method="GET" class="d-inline">
+                                <button name="kategoria" value="ksiazki" class="btn btn-success">Książki</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sposób 3: Dropdown/Select -->
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <h3>Sposób 3: Przez dropdown</h3>
+                    </div>
+                    <div class="card-body">
+                        <p>Wybierz z listy rozwijanej:</p>
+                        <form method="GET" class="d-flex gap-2 align-items-center">
+                            <select name="kategoria" class="form-select" style="width: auto;" onchange="this.form.submit()">
+                                <option value="">-- Wybierz kategorię --</option>
+                                <option value="sport" <?php echo (isset($_GET['kategoria']) && $_GET['kategoria'] == 'sport') ? 'selected' : ''; ?>>Sport</option>
+                                <option value="zdrowie" <?php echo (isset($_GET['kategoria']) && $_GET['kategoria'] == 'zdrowie') ? 'selected' : ''; ?>>Zdrowie</option>
+                                <option value="podroze" <?php echo (isset($_GET['kategoria']) && $_GET['kategoria'] == 'podroze') ? 'selected' : ''; ?>>Podróże</option>
+                                <option value="gotowanie" <?php echo (isset($_GET['kategoria']) && $_GET['kategoria'] == 'gotowanie') ? 'selected' : ''; ?>>Gotowanie</option>
+                            </select>
+                            <button type="submit" class="btn btn-warning">Wyślij</button>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Sposób 4: Input tekstowy -->
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <h3>Sposób 4: Przez pole tekstowe</h3>
+                    </div>
+                    <div class="card-body">
+                        <p>Wpisz kategorię ręcznie:</p>
+                        <form method="GET" class="d-flex gap-2">
+                            <input type="text" name="kategoria" class="form-control" placeholder="np. elektronika, odzież, dom" value="<?php echo isset($_GET['kategoria']) ? htmlspecialchars($_GET['kategoria']) : ''; ?>">
+                            <button type="submit" class="btn btn-info">Szukaj</button>
+                        </form>
+                        <small class="text-muted">Przykłady: elektronika, odzież, dom, auto</small>
+                    </div>
+                </div>
+
+                <!-- Wynik -->
+                <div class="card mb-4">
+                    <div class="card-header bg-success text-white">
+                        <h3>Wynik</h3>
+                    </div>
+                    <div class="card-body">
+                        <?php
+                        if (isset($_GET['kategoria']) && !empty($_GET['kategoria'])) {
+                            $kategoria = htmlspecialchars($_GET['kategoria']);
+                            echo "<div class='alert alert-success'>";
+                            echo "<h4>Wybrana kategoria: $kategoria</h4>";
+                            
+                            // Switch na podstawie kategorii
+                            switch(strtolower($kategoria)) {
+                                case 'laptopy':
+                                    echo "<p><strong>Laptopy:</strong> Najnowsze modele od różnych producentów. Sprawdź nasze promocje na laptopy biznesowe i gamingowe.</p>";
+                                    break;
+                                case 'telefony':
+                                    echo "<p><strong>Telefony:</strong> Smartfony Android i iPhone w najlepszych cenach. Porównaj specyfikacje i wybierz idealny model.</p>";
+                                    break;
+                                case 'tablety':
+                                    echo "<p><strong>Tablety:</strong> Tablety do pracy i rozrywki. Modele z ekranami od 8 do 12 cali.</p>";
+                                    break;
+                                case 'muzyka':
+                                    echo "<p><strong>Muzyka:</strong> Płyty CD, winyle, słuchawki i sprzęt audio wysokiej jakości.</p>";
+                                    break;
+                                case 'filmy':
+                                    echo "<p><strong>Filmy:</strong> DVD, Blu-ray i dostęp do platform streamingowych. Najnowsze premiery i klasyki.</p>";
+                                    break;
+                                case 'ksiazki':
+                                    echo "<p><strong>Książki:</strong> Literatura piękna, podręczniki, e-booki. Sprawdź nasze bestsellery.</p>";
+                                    break;
+                                case 'sport':
+                                    echo "<p><strong>Sport:</strong> Sprzęt sportowy, odzież i suplementy. Wszystko dla aktywnych.</p>";
+                                    break;
+                                case 'zdrowie':
+                                    echo "<p><strong>Zdrowie:</strong> Suplementy diety, sprzęt medyczny i produkty wellness.</p>";
+                                    break;
+                                case 'podroze':
+                                    echo "<p><strong>Podróże:</strong> Walizki, plecaki turystyczne i akcesoria podróżne.</p>";
+                                    break;
+                                case 'gotowanie':
+                                    echo "<p><strong>Gotowanie:</strong> Naczynia, małe AGD i książki kucharskie.</p>";
+                                    break;
+                                case 'elektronika':
+                                    echo "<p><strong>Elektronika:</strong> Telewizory, komputery, urządzenia smart home i akcesoria.</p>";
+                                    break;
+                                case 'odzież':
+                                case 'odziez':
+                                    echo "<p><strong>Odzież:</strong> Modne ubrania dla kobiet, mężczyzn i dzieci. Sprawdź nasze kolekcje.</p>";
+                                    break;
+                                case 'dom':
+                                    echo "<p><strong>Dom:</strong> Meble, dekoracje, narzędzia i wszystko do urządzenia domu.</p>";
+                                    break;
+                                case 'auto':
+                                    echo "<p><strong>Auto:</strong> Części zamienne, akcesoria samochodowe i kosmetyki do pielęgnacji auta.</p>";
+                                    break;
+                                default:
+                                    echo "<p><strong>Kategoria '$kategoria':</strong> Przepraszamy, nie mamy jeszcze produktów w tej kategorii. Spróbuj: laptopy, telefony, muzyka, sport.</p>";
+                            }
+                            echo "</div>";
+                        } else {
+                            echo "<div class='alert alert-info'>";
+                            echo "<h4>Brak wyboru</h4>";
+                            echo "<p>Wybierz kategorię używając jednego z 4 sposobów powyżej, aby zobaczyć odpowiednią treść.</p>";
+                            echo "</div>";
+                        }
+                        ?>
+                    </div>
+                </div>
+
+                <!-- Informacje techniczne -->
+                <div class="card mb-4">
+                    <div class="card-header bg-dark text-white">
+                        <h3>Informacje techniczne</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h5>Aktualny URL:</h5>
+                                <code><?php echo htmlspecialchars($_SERVER['REQUEST_URI']); ?></code>
+                            </div>
+                            <div class="col-md-6">
+                                <h5>Tablica $_GET:</h5>
+                                <code><?php echo json_encode($_GET, JSON_UNESCAPED_UNICODE); ?></code>
+                            </div>
+                        </div>
+                        
+                        <?php if (isset($_GET['kategoria'])): ?>
+                        <hr>
+                        <h5>Wykonany kod PHP:</h5>
+                        <pre class="bg-light p-2"><code>$kategoria = $_GET['kategoria']; // "<?php echo htmlspecialchars($_GET['kategoria']); ?>"
+switch(strtolower($kategoria)) {
+    case '<?php echo strtolower(htmlspecialchars($_GET['kategoria'])); ?>':
+        echo "Treść dla kategorii <?php echo htmlspecialchars($_GET['kategoria']); ?>";
+        break;
+}</code></pre>
+                        <?php endif; ?>
+                    </div>
+                </div>
+
+                <!-- Podsumowanie -->
+                <div class="card">
+                    <div class="card-header bg-warning">
+                        <h3>Podsumowanie - 4 sposoby</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h5>1. Linki</h5>
+                                <small class="text-muted">href="?kategoria=wartość"</small>
+                                
+                                <h5 class="mt-3">2. Przyciski</h5>
+                                <small class="text-muted">button name="kategoria" value="wartość"</small>
+                            </div>
+                            <div class="col-md-6">
+                                <h5>3. Dropdown</h5>
+                                <small class="text-muted">select name="kategoria" + onchange</small>
+                                
+                                <h5 class="mt-3">4. Input tekstowy</h5>
+                                <small class="text-muted">input name="kategoria" + submit</small>
+                            </div>
+                        </div>
+                        <hr>
+                        <p class="mb-0"><strong>Wszystkie sposoby robią to samo:</strong> wypełniają <code>$_GET['kategoria']</code> wartością wybraną przez użytkownika!</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

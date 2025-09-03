@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jak działa $_GET</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; line-height: 1.6; }
+        .step { background: #f8f9fa; padding: 15px; margin: 10px 0; border-left: 4px solid #007bff; }
+        .code { background: #e9ecef; padding: 10px; font-family: monospace; border-radius: 4px; }
+        .url { background: #fff3cd; padding: 8px; border-radius: 4px; font-family: monospace; }
+        .arrow { font-size: 24px; text-align: center; color: #007bff; }
+        .highlight { background: yellow; font-weight: bold; }
+        .example { border: 2px solid #28a745; padding: 15px; border-radius: 5px; background: #f8fff8; }
+    </style>
+</head>
+<body>
+    <h1>🔍 Jak działa $_GET w PHP</h1>
+
+    <div class="step">
+        <h3>KROK 1: Programista pisze HTML z linkami</h3>
+        <div class="code">
+&lt;a href="<span class="highlight">?kategoria=jabłka</span>"&gt;Jabłka&lt;/a&gt;<br>
+&lt;a href="<span class="highlight">?kategoria=banany</span>"&gt;Banany&lt;/a&gt;<br>
+&lt;a href="<span class="highlight">?kategoria=pomarańcze</span>"&gt;Pomarańcze&lt;/a&gt;
+        </div>
+        <p><strong>Uwaga:</strong> "kategoria" to <em>dowolna nazwa</em> wymyślona przez programistę!</p>
+    </div>
+
+    <div class="arrow">⬇️</div>
+
+    <div class="step">
+        <h3>KROK 2: Użytkownik klika link "Jabłka"</h3>
+        <p>Przeglądarka wysyła żądanie HTTP:</p>
+        <div class="url">
+            GET /strona.php<span class="highlight">?kategoria=jabłka</span> HTTP/1.1
+        </div>
+    </div>
+
+    <div class="arrow">⬇️</div>
+
+    <div class="step">
+        <h3>KROK 3: PHP automatycznie analizuje URL</h3>
+        <p>PHP widzi część po "?" i <strong>automatycznie</strong> tworzy tablicę $_GET:</p>
+        <div class="code">
+// PHP robi to ZA CIEBIE:<br>
+$_GET = [<br>
+&nbsp;&nbsp;&nbsp;&nbsp;'<span class="highlight">kategoria</span>' => '<span class="highlight">jabłka</span>'<br>
+];
+        </div>
+    </div>
+
+    <div class="arrow">⬇️</div>
+
+    <div class="step">
+        <h3>KROK 4: Programista odczytuje wartość</h3>
+        <div class="code">
+$kategoria = $_GET['kategoria']; // <span class="highlight">"jabłka"</span>
+        </div>
+        <p><strong>Teraz</strong> programista może użyć tej wartości!</p>
+    </div>
+
+    <h2>🧪 Przykład na żywo</h2>
+    
+    <div class="example">
+        <h3>Kliknij i obserwuj URL:</h3>
+        <p>
+            <a href="?test=czerwony">🔴 Czerwony</a> | 
+            <a href="?test=niebieski">🔵 Niebieski</a> | 
+            <a href="?test=zielony">🟢 Zielony</a> | 
+            <a href="?">🏠 Reset</a>
+        </p>
+        
+        <div style="background: white; padding: 15px; border: 1px solid #ccc;">
+            <h4>Co PHP widzi:</h4>
+            <?php if (isset($_GET['test'])): ?>
+                <div class="code">
+                    $_GET['test'] = "<?php echo htmlspecialchars($_GET['test']); ?>"
+                </div>
+                <p><strong>Wybrany kolor:</strong> <?php echo htmlspecialchars($_GET['test']); ?></p>
+            <?php else: ?>
+                <div class="code">$_GET = [] (pusty)</div>
+                <p>Brak parametrów w URL</p>
+            <?php endif; ?>
+        </div>
+    </div>
+
+    <h2>📋 Kluczowe fakty</h2>
+    <ul>
+        <li><strong>"kategoria"</strong> to nazwa wymyślona przez programistę (może być cokolwiek!)</li>
+        <li><strong>PHP automatycznie</strong> wypełnia $_GET na podstawie URL</li>
+        <li><strong>Użytkownik</strong> wypełnia wartości przez kliknięcie linków</li>
+        <li><strong>Format:</strong> ?nazwa1=wartość1&nazwa2=wartość2</li>
+    </ul>
+
+    <h2>🔧 Inne przykłady nazw parametrów</h2>
+    <div class="code">
+?strona=kontakt          → $_GET['strona'] = "kontakt"<br>
+?id=123                  → $_GET['id'] = "123"<br>
+?szukaj=php+tutorial     → $_GET['szukaj'] = "php tutorial"<br>
+?kolor=red&rozmiar=L     → $_GET['kolor'] = "red", $_GET['rozmiar'] = "L"
+    </div>
+
+</body>
+</html>

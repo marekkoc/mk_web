@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bezpieczne parametry GET</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container mt-4">
+        <h1>Bezpieczne odczytywanie parametrów GET</h1>
+
+        <?php
+        // Dokładnie ten kod z twojego przykładu:
+        $siuid = "";
+        if (isset($_GET['siuid'])) {
+            $siuid = $_GET['siuid'];
+        }
+        $pid = "";
+        if (isset($_GET['pid'])) {
+            $pid = $_GET['pid'];
+        }
+        ?>
+
+        <div class="row">
+            <div class="col-md-8">
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <h3>Testuj różne URL</h3>
+                    </div>
+                    <div class="card-body">
+                        <p>Kliknij linki poniżej, aby zobaczyć jak kod reaguje na różne parametry:</p>
+                        
+                        <div class="mb-3">
+                            <h5>Z oboma parametrami:</h5>
+                            <a href="?siuid=12345&pid=abc789" class="btn btn-primary me-2">siuid=12345&pid=abc789</a>
+                            <a href="?siuid=user001&pid=project999" class="btn btn-primary">siuid=user001&pid=project999</a>
+                        </div>
+
+                        <div class="mb-3">
+                            <h5>Z jednym parametrem:</h5>
+                            <a href="?siuid=tylko_siuid" class="btn btn-warning me-2">Tylko siuid</a>
+                            <a href="?pid=tylko_pid" class="btn btn-warning">Tylko pid</a>
+                        </div>
+
+                        <div class="mb-3">
+                            <h5>Bez parametrów:</h5>
+                            <a href="?" class="btn btn-secondary">Brak parametrów</a>
+                        </div>
+
+                        <div class="mb-3">
+                            <h5>Z innymi parametrami:</h5>
+                            <a href="?other=cos_innego" class="btn btn-info">Inne parametry</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header bg-success text-white">
+                        <h3>Wynik działania kodu</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h5>Wartość $siuid:</h5>
+                                <?php if ($siuid !== ""): ?>
+                                    <div class="alert alert-success">
+                                        <strong>"<?php echo htmlspecialchars($siuid); ?>"</strong>
+                                        <br><small>Parametr istnieje w URL</small>
+                                    </div>
+                                <?php else: ?>
+                                    <div class="alert alert-secondary">
+                                        <strong>""</strong> (pusty string)
+                                        <br><small>Parametr nie istnieje w URL</small>
+                                    </div>
+                                <?php endif; ?>
+                            </div>
+                            <div class="col-md-6">
+                                <h5>Wartość $pid:</h5>
+                                <?php if ($pid !== ""): ?>
+                                    <div class="alert alert-success">
+                                        <strong>"<?php echo htmlspecialchars($pid); ?>"</strong>
+                                        <br><small>Parametr istnieje w URL</small>
+                                    </div>
+                                <?php else: ?>
+                                    <div class="alert alert-secondary">
+                                        <strong>""</strong> (pusty string)
+                                        <br><small>Parametr nie istnieje w URL</small>
+                                    </div>
+                                <?php endif; ?>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Informacje techniczne</h3>
+                    </div>
+                    <div class="card-body">
+                        <h5>Aktualny URL:</h5>
+                        <code class="d-block mb-3"><?php echo htmlspecialchars($_SERVER['REQUEST_URI']); ?></code>
+                        
+                        <h5>Zawartość $_GET:</h5>
+                        <pre class="bg-light p-2"><code><?php echo json_encode($_GET, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE); ?></code></pre>
+                        
+                        <h5>Wykonany kod PHP:</h5>
+                        <pre class="bg-light p-2 small"><code>$siuid = "";
+if (isset($_GET['siuid'])) {
+    $siuid = $_GET['siuid'];
+}
+$pid = "";
+if (isset($_GET['pid'])) {
+    $pid = $_GET['pid'];
+}</code></pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mt-4">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header bg-warning">
+                        <h3>Porównanie: bezpieczne vs niebezpieczne</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h5 class="text-danger">❌ Niebezpieczny sposób:</h5>
+                                <pre class="bg-light p-2"><code>$siuid = $_GET['siuid'];  // Błąd jeśli brak parametru!
+$pid = $_GET['pid'];      // Błąd jeśli brak parametru!</code></pre>
+                                <small class="text-danger">Może wywołać "Notice: Undefined index"</small>
+                            </div>
+                            <div class="col-md-6">
+                                <h5 class="text-success">✅ Bezpieczny sposób:</h5>
+                                <pre class="bg-light p-2"><code>$siuid = "";
+if (isset($_GET['siuid'])) {
+    $siuid = $_GET['siuid'];
+}
+$pid = "";
+if (isset($_GET['pid'])) {
+    $pid = $_GET['pid'];
+}</code></pre>
+                                <small class="text-success">Zawsze działa, bez błędów</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mt-4">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header bg-info text-white">
+                        <h3>Alternatywne sposoby (krótsze)</h3>
+                    </div>
+                    <div class="card-body">
+                        <h5>Sposób 1: Operator ternary</h5>
+                        <pre class="bg-light p-2"><code>$siuid = isset($_GET['siuid']) ? $_GET['siuid'] : "";
+$pid = isset($_GET['pid']) ? $_GET['pid'] : "";</code></pre>
+
+                        <h5>Sposób 2: Null coalescing (PHP 7+)</h5>
+                        <pre class="bg-light p-2"><code>$siuid = $_GET['siuid'] ?? "";
+$pid = $_GET['pid'] ?? "";</code></pre>
+
+                        <h5>Sposób 3: filter_input() (najbezpieczniejszy)</h5>
+                        <pre class="bg-light p-2"><code>$siuid = filter_input(INPUT_GET, 'siuid', FILTER_SANITIZE_STRING) ?? "";
+$pid = filter_input(INPUT_GET, 'pid', FILTER_SANITIZE_STRING) ?? "";</code></pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

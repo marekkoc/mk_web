@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GET z przyciskami</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; }
+        .panel { background: #f8f9fa; padding: 20px; margin: 15px 0; border-radius: 8px; }
+        button { padding: 10px 20px; margin: 5px; border: none; border-radius: 5px; cursor: pointer; font-size: 16px; }
+        .fruit-btn { background: #28a745; color: white; }
+        .fruit-btn:hover { background: #218838; }
+        .reset-btn { background: #6c757d; color: white; }
+        .result { background: #d4edda; border: 1px solid #c3e6cb; padding: 15px; border-radius: 5px; }
+        .code-box { background: #e9ecef; padding: 10px; font-family: monospace; border-radius: 4px; margin: 10px 0; }
+    </style>
+</head>
+<body>
+    <h1>🎮 GET przez przyciski</h1>
+
+    <div class="panel">
+        <h3>Wybierz owoc (kliknij przycisk):</h3>
+        
+        <!-- Każdy przycisk wysyła inny parametr GET -->
+        <form method="GET" style="display: inline;">
+            <button class="fruit-btn" name="owoc" value="jabłko">🍎 Jabłko</button>
+        </form>
+        
+        <form method="GET" style="display: inline;">
+            <button class="fruit-btn" name="owoc" value="banan">🍌 Banan</button>
+        </form>
+        
+        <form method="GET" style="display: inline;">
+            <button class="fruit-btn" name="owoc" value="pomarańcza">🍊 Pomarańcza</button>
+        </form>
+        
+        <form method="GET" style="display: inline;">
+            <button class="reset-btn">🔄 Reset</button>
+        </form>
+    </div>
+
+    <div class="panel">
+        <h3>📊 Wynik:</h3>
+        <div class="result">
+            <?php
+            if (isset($_GET['owoc'])) {
+                $wybrany_owoc = $_GET['owoc'];
+                
+                echo "<h4>✅ Wybrałeś: " . htmlspecialchars($wybrany_owoc) . "</h4>";
+                
+                // "Switch" na podstawie wyboru użytkownika
+                switch($wybrany_owoc) {
+                    case 'jabłko':
+                        echo "<p>🍎 Jabłka są bogate w witaminę C!</p>";
+                        echo "<p>💰 Cena: 6 zł/kg</p>";
+                        echo "<p>🌟 Polecamy: Golden Delicious</p>";
+                        break;
+                        
+                    case 'banan':
+                        echo "<p>🍌 Banany zawierają dużo potasu!</p>";
+                        echo "<p>💰 Cena: 8 zł/kg</p>";
+                        echo "<p>🌟 Polecamy: świeże z Ekwadoru</p>";
+                        break;
+                        
+                    case 'pomarańcza':
+                        echo "<p>🍊 Pomarańcze to bomba witaminowa!</p>";
+                        echo "<p>💰 Cena: 7 zł/kg</p>";
+                        echo "<p>🌟 Polecamy: Valencia z Hiszpanii</p>";
+                        break;
+                        
+                    default:
+                        echo "<p>❓ Nieznany owoc: " . htmlspecialchars($wybrany_owoc) . "</p>";
+                }
+                
+            } else {
+                echo "<p>👋 Kliknij przycisk powyżej, aby wybrać owoc!</p>";
+            }
+            ?>
+        </div>
+    </div>
+
+    <div class="panel">
+        <h3>🔍 Co dzieje się w tle:</h3>
+        <div class="code-box">
+            <strong>Aktualny URL:</strong> <?php echo htmlspecialchars($_SERVER['REQUEST_URI']); ?><br>
+            <strong>$_GET tablica:</strong> <?php echo json_encode($_GET, JSON_UNESCAPED_UNICODE); ?>
+        </div>
+        
+        <?php if (isset($_GET['owoc'])): ?>
+        <div class="code-box">
+            <strong>PHP kod który się wykonał:</strong><br>
+            $wybrany_owoc = $_GET['owoc']; // "<?php echo htmlspecialchars($_GET['owoc']); ?>"<br>
+            switch($wybrany_owoc) {<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;case '<?php echo htmlspecialchars($_GET['owoc']); ?>': // ← ta linia się wykonała<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;echo "informacje o <?php echo htmlspecialchars($_GET['owoc']); ?>";<br>
+            }
+        </div>
+        <?php endif; ?>
+    </div>
+
+    <div class="panel">
+        <h3>💡 Jak to działa:</h3>
+        <ol>
+            <li><strong>Użytkownik klika</strong> przycisk "🍎 Jabłko"</li>
+            <li><strong>Przeglądarka wysyła</strong> żądanie: <code>?owoc=jabłko</code></li>
+            <li><strong>PHP automatycznie tworzy:</strong> <code>$_GET['owoc'] = 'jabłko'</code></li>
+            <li><strong>Kod switch reaguje</strong> na wartość "jabłko"</li>
+            <li><strong>Wyświetla się</strong> odpowiednia treść</li>
+        </ol>
+        
+        <p><strong>To jest dokładnie jak switch</strong>, ale wartość pochodzi od użytkownika przez URL!</p>
+    </div>
+</body>
+</html>

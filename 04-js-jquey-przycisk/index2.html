@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+   <button id="myButton">Kliknij mnie</button>
+   <p id="text">Tekst do zmiany</p>
+
+   <button id="myButton2">Toggle()</button>
+   <p id="text2"> Pokaż / Showaj</p>
+
+   <button id="myButton3">Zmienna logiczna</button>
+   <p id="text3"> Pokaż / Ukry -> ze zmienną logiczną</p>
+
+   <button id="myButton4">Tablca dwuelementowa</button>
+   <p id="text4">Pokaż / Ukryj -> Z tablicą dwuelementową</p>
+
+
+
+   <script>
+       $('#myButton').click(function() {
+           $('#text').text('Zmieniono!');
+       });
+
+       jQuery('#myButton2').click(function() {
+        $('#text2').toggle()
+       });
+
+       let isVisible = true;
+       jQuery("#myButton3").click(function() {
+        if (isVisible) {
+            $("#text3").hide();
+            isVisible = false;
+        } else {
+            $("#text3").show();
+            isVisible = true;
+        }
+       });
+
+       let states = ['show', 'hide'];
+       let counter = 0;
+
+       jQuery("#myButton4").click(function() {
+        let action = states[counter % 2];
+
+        if (action === 'show') {
+            $("#text4").show();
+        } else {
+            $("#text4").hide();
+        }
+        counter++;
+        console.log("counter=", counter)
+       });
+   </script>
+</body>
+</html>

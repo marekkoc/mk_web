@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+  <h2>Przykłady jQuery</h2>
+  
+  <!-- Przykład 1: Zmiana tekstu -->
+  <button id="changeTextButton">Zmień tekst</button>
+  <p id="textToChange">Oryginalny tekst</p>
+  <hr>
+
+  <!-- Przykład 2: Toggle z jQuery -->
+  <button id="toggleButton">Pokaż/Ukryj (jQuery toggle)</button>
+  <p id="toggleText">Tekst do ukrycia/pokazania</p>
+  <hr>
+
+  <!-- Przykład 3: Toggle ze zmienną -->
+  <button id="variableToggleButton">Pokaż/Ukryj (zmienna)</button>
+  <p id="variableToggleText">Tekst kontrolowany zmienną</p>
+  <hr>
+
+  <!-- Przykład 4: Toggle z tablicą -->
+  <button id="arrayToggleButton">Pokaż/Ukryj (tablica)</button>
+  <p id="arrayToggleText">Tekst kontrolowany tablicą</p>
+
+  <script>
+      // === PRZYKŁAD 1: Zmiana tekstu ===
+      $('#changeTextButton').click(function() {
+          $('#textToChange').text('Tekst został zmieniony!');
+      });
+
+      // === PRZYKŁAD 2: Toggle z jQuery ===
+      $('#toggleButton').click(function() {
+          $('#toggleText').toggle();
+      });
+
+      // === PRZYKŁAD 3: Toggle ze zmienną logiczną ===
+      let isTextVisible = true;
+      
+      $('#variableToggleButton').click(function() {
+          if (isTextVisible) {
+              $('#variableToggleText').hide();
+              isTextVisible = false;
+          } else {
+              $('#variableToggleText').show();
+              isTextVisible = true;
+          }
+      });
+
+      // === PRZYKŁAD 4: Toggle z tablicą ===
+      let actions = ['hide', 'show'];  // Zmieniłem kolejność
+      let clickCount = 0;
+
+      $('#arrayToggleButton').click(function() {
+          let currentAction = actions[clickCount % 2];
+          
+          if (currentAction === 'show') {
+              $('#arrayToggleText').show();
+          } else {
+              $('#arrayToggleText').hide();
+          }
+          
+          clickCount++;
+          console.log('Liczba kliknięć:', clickCount);
+      });
+  </script>
+</body>
+</html>
