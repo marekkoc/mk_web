@@ -1,0 +1,22 @@
+{
+    "users": [
+        {
+            "login": "kdjkdf",
+            "haslo": "ddfdf",
+            "zapamietaj": "tak",
+            "data_utworzenia": "2025-09-02 15:20:59"
+        },
+        {
+            "login": "ddf",
+            "haslo": "dfdfd",
+            "zapamietaj": "nie",
+            "data_utworzenia": "2025-09-02 15:21:07"
+        },
+        {
+            "login": "ddf2",
+            "haslo": "dfdfd",
+            "zapamietaj": "tak",
+            "data_utworzenia": "2025-09-02 15:26:02"
+        }
+    ]
+}

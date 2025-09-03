@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Przykład GET i POST</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <h1 class="text-center mb-5">Prosty przykład GET i POST</h1>
+                
+                <!-- Sekcja GET -->
+                <div class="card mb-4">
+                    <div class="card-header bg-success text-white">
+                        <h3>Metoda GET - Pobieranie danych</h3>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text">
+                            GET służy do <strong>pobierania</strong> danych z serwera. 
+                            Parametry są widoczne w adresie URL.
+                        </p>
+                        
+                        <h5>Przykłady linków GET:</h5>
+                        <div class="list-group mb-3">
+                            <a href="https://httpbin.org/get" class="list-group-item list-group-item-action" target="_blank">
+                                📄 Podstawowy GET - zobacz odpowiedź serwera
+                            </a>
+                            <a href="https://httpbin.org/get?nazwa=Jan&wiek=25" class="list-group-item list-group-item-action" target="_blank">
+                                📋 GET z parametrami: nazwa=Jan, wiek=25
+                            </a>
+                            <a href="https://httpbin.org/get?miasto=Warszawa&kraj=Polska" class="list-group-item list-group-item-action" target="_blank">
+                                🌍 GET z parametrami: miasto=Warszawa, kraj=Polska
+                            </a>
+                        </div>
+                        
+                        <div class="alert alert-info">
+                            <strong>Uwaga:</strong> Kliknij linki powyżej - zobaczysz odpowiedź serwera w formacie JSON. 
+                            Zwróć uwagę na sekcję "args" - tam są twoje parametry!
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sekcja POST -->
+                <div class="card mb-4">
+                    <div class="card-header bg-primary text-white">
+                        <h3>Metoda POST - Wysyłanie danych</h3>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text">
+                            POST służy do <strong>wysyłania</strong> danych na serwer. 
+                            Dane są ukryte w ciele żądania (nie w URL).
+                        </p>
+                        
+                        <form action="https://httpbin.org/post" method="POST" target="_blank">
+                            <div class="mb-3">
+                                <label for="imie" class="form-label">Imię:</label>
+                                <input type="text" class="form-control" id="imie" name="imie" placeholder="Wpisz swoje imię">
+                            </div>
+                            
+                            <div class="mb-3">
+                                <label for="email" class="form-label">Email:</label>
+                                <input type="email" class="form-control" id="email" name="email" placeholder="twoj@email.com">
+                            </div>
+                            
+                            <div class="mb-3">
+                                <label for="wiadomosc" class="form-label">Wiadomość:</label>
+                                <textarea class="form-control" id="wiadomosc" name="wiadomosc" rows="3" placeholder="Twoja wiadomość..."></textarea>
+                            </div>
+                            
+                            <div class="mb-3">
+                                <label for="kategoria" class="form-label">Kategoria:</label>
+                                <select class="form-select" id="kategoria" name="kategoria">
+                                    <option value="">Wybierz kategorię</option>
+                                    <option value="pytanie">Pytanie</option>
+                                    <option value="sugestia">Sugestia</option>
+                                    <option value="problem">Problem</option>
+                                </select>
+                            </div>
+                            
+                            <button type="submit" class="btn btn-primary btn-lg w-100">
+                                📤 Wyślij dane metodą POST
+                            </button>
+                        </form>
+                        
+                        <div class="alert alert-warning mt-3">
+                            <strong>Test:</strong> Wypełnij formularz i kliknij "Wyślij". 
+                            Zobaczysz odpowiedź serwera z twoimi danymi w sekcji "form"!
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Porównanie -->
+                <div class="card">
+                    <div class="card-header bg-dark text-white">
+                        <h3>GET vs POST - Główne różnice</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h5 class="text-success">GET</h5>
+                                <ul class="list-unstyled">
+                                    <li>✅ Pobieranie danych</li>
+                                    <li>✅ Parametry w URL</li>
+                                    <li>✅ Można zapisać w zakładkach</li>
+                                    <li>❌ Dane widoczne dla wszystkich</li>
+                                    <li>❌ Limit długości URL</li>
+                                </ul>
+                            </div>
+                            <div class="col-md-6">
+                                <h5 class="text-primary">POST</h5>
+                                <ul class="list-unstyled">
+                                    <li>✅ Wysyłanie danych</li>
+                                    <li>✅ Dane ukryte w ciele żądania</li>
+                                    <li>✅ Bezpieczniejsze dla wrażliwych danych</li>
+                                    <li>✅ Brak limitu rozmiaru</li>
+                                    <li>❌ Nie można zapisać w zakładkach</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="text-center mt-4">
+                    <small class="text-muted">
+                        Serwer testowy: httpbin.org | Bootstrap 5.3.0
+                    </small>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
