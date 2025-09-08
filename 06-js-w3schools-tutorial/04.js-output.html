@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+
+<html>
+  <body>
+
+    <h1>My first web page</h1>
+    <p id="first">My First Paragraph</p>
+
+    <p id="demo">dupa lampa</p>
+
+    <script>
+      document.getElementById("demo").innerHTML = "<h2>Hello world!!!</h2>";
+      document.getElementById("first").innerText = " Tra la lalala";
+      document.write(5 + 6);
+    </script>
+    <!-- Using document.write() after an HTML document is loaded, will delete all existing HTML. The document.write() method should only be used for testing. --->
+      <button type="button" onclick="document.write(5+6)">Try it</button>
+
+
+    <!-- USING window.alert() -->
+    <script>
+      // we can skip 'window' keyword.
+      window.alert(5+6);
+    </script>
+
+    <!-- USING: consloe.log() -->
+    <script>
+      console.log(5+6);
+    </script>
+
+    <!-- USING: print -->
+    <button onclick="window.print()">Print this page</button>
+
+  </body>
+</html>
+
